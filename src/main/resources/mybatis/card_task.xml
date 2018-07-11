@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xmasye.ours.dao.mybatis.CardTaskDao" >
+
+    <select id="selectAllTaskByOpenId" resultType="cardTask">
+        SELECT id,openid,task_name,color,rank,start_time,end_time FROM t_card_task
+        WHERE openid=#{openid} AND task_status=1
+        ORDER BY rank
+    </select>
+
+</mapper>

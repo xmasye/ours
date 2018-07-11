@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xmasye.ours.dao.mybatis.CardRecordDao" >
+
+    <select id="selectByOpenidAndTime" resultType="cardRecord">
+        SELECT id,openid,task_id,`day`,schedule FROM t_card_record
+        WHERE openid=#{openid} AND
+        task_id IN
+        <foreach collection="taskIds" item="taskId" open="(" separator="," close=")">
+            #{taskId}
+        </foreach>
+        AND `day`>=#{startTime} AND #{endTime}>=`day`
+    </select>
+
+    <insert id="insertOrUpdateCardRecord">
+        INSERT INTO t_card_record(openid, task_id, `day`, schedule) VALUES (#{openid}, #{taskId}, #{day}, #{schedule})
+        ON DUPLICATE KEY UPDATE schedule=#{schedule}
+    </insert>
+
+</mapper>
